@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import purple from "@material-ui/core/colors/purple";
 import MoviesList from "../components/moviesList";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { blockParams } from "handlebars";
 
 const style = {
   root: {
@@ -45,25 +47,31 @@ class Movies extends Component {
   }
 
   renderMovies() {
-    if (!_.isEmpty(this.props.movies)) {
-      return this.props.movies[0].map(data => {
-        return <MoviesList key={data.id} data={data} />;
-      });
-    } else {
-      return <CircularProgress style={{ color: purple[500] }} thickness={7} size={100} />;
-    }
+    return (
+      <TransitionGroup component={null}>
+        {this.props.movies[0].map(data => (
+          <CSSTransition appear={true} timeout={500} classNames="movielist" key={data.id}>
+            <div>
+              <MoviesList data={data} />
+            </div>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    );
   }
 
   render() {
-    return (
-      <div>
+    if (!_.isEmpty(this.props.movies)) {
+      return (
         <div style={style.root}>
           <Grid style={{ width: "100%", marginTop: 5 }} container justify="center">
             {this.renderMovies()}
           </Grid>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <CircularProgress style={{ color: purple[500] }} thickness={7} size={100} />;
+    }
   }
 }
 

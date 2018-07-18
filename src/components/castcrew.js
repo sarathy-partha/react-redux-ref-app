@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import _ from "lodash";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -41,25 +42,29 @@ class CastCrew extends Component {
   renderCast() {
     const MOVIE_CAST_URL = "http://image.tmdb.org/t/p/w154";
     if (!_.isEmpty(this.state)) {
-      return this.state.cast.map(cast => {
-        return (
-          <div key={cast.cast_id}>
-            {cast.profile_path != null && (
-              <Tooltip
-                id="tooltip-icon"
-                title={cast.name + " as " + cast.character}
-                placement="bottom"
-              >
-                <Avatar
-                  alt={cast.name + " as " + cast.character}
-                  src={MOVIE_CAST_URL + cast.profile_path}
-                  style={style.bigAvatar}
-                />
-              </Tooltip>
-            )}
-          </div>
-        );
-      });
+      return (
+        <TransitionGroup style={style.row}>
+          {this.state.cast.map(cast => (
+            <CSSTransition key={cast.cast_id} timeout={500} classNames="castcrew">
+              <div>
+                {cast.profile_path != null && (
+                  <Tooltip
+                    id="tooltip-icon"
+                    title={cast.name + " as " + cast.character}
+                    placement="bottom"
+                  >
+                    <Avatar
+                      alt={cast.name + " as " + cast.character}
+                      src={MOVIE_CAST_URL + cast.profile_path}
+                      style={style.bigAvatar}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      );
     } else {
       return <CircularProgress style={{ color: purple[500] }} thickness={7} size={100} />;
     }
@@ -68,21 +73,25 @@ class CastCrew extends Component {
   renderCrew() {
     const MOVIE_CAST_URL = "http://image.tmdb.org/t/p/w154";
     if (!_.isEmpty(this.state)) {
-      return this.state.crew.map(crew => {
-        return (
-          <div key={crew.credit_id}>
-            {crew.profile_path != null && (
-              <Tooltip id="tooltip-icon" title={crew.job + " : " + crew.name} placement="top">
-                <Avatar
-                  alt={crew.job + " : " + crew.name}
-                  src={MOVIE_CAST_URL + crew.profile_path}
-                  style={style.bigAvatar}
-                />
-              </Tooltip>
-            )}
-          </div>
-        );
-      });
+      return (
+        <TransitionGroup style={style.row}>
+          {this.state.crew.map(crew => (
+            <CSSTransition key={crew.credit_id} timeout={500} classNames="castcrew">
+              <div>
+                {crew.profile_path != null && (
+                  <Tooltip id="tooltip-icon" title={crew.job + " : " + crew.name} placement="top">
+                    <Avatar
+                      alt={crew.job + " : " + crew.name}
+                      src={MOVIE_CAST_URL + crew.profile_path}
+                      style={style.bigAvatar}
+                    />
+                  </Tooltip>
+                )}
+              </div>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      );
     } else {
       return <CircularProgress style={{ color: purple[500] }} thickness={7} size={100} />;
     }
@@ -91,8 +100,8 @@ class CastCrew extends Component {
   render() {
     return (
       <div>
-        <div style={style.row}>{this.renderCast()}</div>
-        <div style={style.row}>{this.renderCrew()}</div>
+        {this.renderCast()}
+        {this.renderCrew()}
       </div>
     );
   }
