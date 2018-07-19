@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import CastCrew from "../components/castcrew";
-import PropTypes from "prop-types";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import React, { Component } from 'react';
+import CastCrew from '../components/castcrew';
+import PropTypes from 'prop-types';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const style = {
   root: {
@@ -18,12 +18,12 @@ const style = {
     width: 345
   },
   details: {
-    display: "flex",
+    display: 'flex',
     marginTop: 15
   },
   content: {
     height: 200,
-    overflow: "auto"
+    overflow: 'auto'
   },
   media: {
     height: 500
@@ -33,8 +33,7 @@ const style = {
   }
 };
 
-const MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
-
+const MOVIE_POSTER_URL = 'http://image.tmdb.org/t/p/w500';
 class MoviesList extends Component {
   render() {
     return (
@@ -43,7 +42,7 @@ class MoviesList extends Component {
           <Card style={style.card}>
             <CardMedia style={style.media} image={MOVIE_POSTER_URL + this.props.data.poster_path} />
             <CardContent>
-              <Typography type="headline">{this.props.data.title}</Typography>
+              <Typography variant="headline">{this.props.data.title}</Typography>
               <LinearProgress
                 color="secondary"
                 variant="determinate"
@@ -57,7 +56,7 @@ class MoviesList extends Component {
                 >
                   <FavoriteBorder />
                 </Badge>
-                <Typography type="body2">Releasing : {this.props.data.release_date}</Typography>
+                <Typography variant="body2">Releasing : {this.props.data.release_date}</Typography>
               </div>
               <CastCrew movie={this.props.data.id} />
             </CardContent>

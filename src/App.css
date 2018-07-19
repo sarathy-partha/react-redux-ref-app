@@ -31,26 +31,33 @@
 }
 
 .movielist-appear {
-  opacity: 0.01;
-  transform: scale(0);
+  opacity: 0;
 }
+
 .movielist-appear-active {
   opacity: 1;
-  transform: scale(1);
-  transition: all 500ms ease-out;
+  transition: all 1s ease-out;
 }
+
 .movielist-exit {
   opacity: 1;
   transform: scale(1);
 }
+
 .movielist-exit-active {
   opacity: 0.01;
   transform: scale(0.9);
   transition: all 300ms ease-out;
 }
+
+.movielist-enter-done {
+  transform: scale(1);
+  transition: 300ms;
+}
+
 .movielist-enter-done:hover {
   transform: scale(1.02);
-  transition: all 500ms ease-in-out;
+  transition: 300ms ease-in-out;
 }
 .castcrew-enter {
   transform: scale(0);
@@ -60,9 +67,14 @@
   transition: all 500ms ease-out;
 }
 
+.castcrew-enter-done {
+  transform: scale(1);
+  transition: 500ms;
+}
+
 .castcrew-enter-done:hover {
   transform: scale(1.5);
-  transition: all 500ms linear;
+  transition: 500ms linear;
 }
 .castcrew-exit {
   opacity: 1;

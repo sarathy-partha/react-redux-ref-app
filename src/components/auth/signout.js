@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import PropTypes from 'prop-types';
 
 class SignOut extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.signoutUser();
   }
 
@@ -17,4 +17,7 @@ SignOut.propTypes = {
   signoutUser: PropTypes.func.isRequired
 };
 
-export default connect(null, actions)(SignOut);
+export default connect(
+  null,
+  actions
+)(SignOut);

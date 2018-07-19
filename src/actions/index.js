@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   CHANGE_AUTH,
   FETCH_CASTCREW,
@@ -6,14 +6,15 @@ import {
   UPDATE_TITLE,
   AUTH_USER,
   UNAUTH_USER,
-  AUTH_ERROR
-} from "./types";
-import history from "../helper/history";
-import { config } from "../helper/config";
+  AUTH_ERROR,
+  TOGGLE_THEME
+} from './types';
+import history from '../helper/history';
+import { config } from '../helper/config';
 
 const MOVIES_URL = config.tmbMoviesURL;
 const CASTCREW_URL = config.tmpCastCrewURL;
-const API_KEY = "api_key=" + config.tmbAPIKey + "&page=1&region=IN";
+const API_KEY = 'api_key=' + config.tmbAPIKey + '&page=1&region=US';
 
 const API_ROOT_URL = config.apiURL;
 
@@ -28,14 +29,14 @@ export function authenticate(isLoggedIn) {
 
 export function increaseCounter(counter) {
   return {
-    type: "INCREASE_COUNTER",
+    type: 'INCREASE_COUNTER',
     payload: counter
   };
 }
 
 export function decreaseCounter(counter) {
   return {
-    type: "DECREASE_COUNTER",
+    type: 'DECREASE_COUNTER',
     payload: counter
   };
 }
@@ -78,12 +79,12 @@ export function signinUser({ email, password }) {
       .post(`${API_ROOT_URL}/signin`, { email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
-        localStorage.setItem("token", response.data.token);
-        history.push("/movies");
+        localStorage.setItem('token', response.data.token);
+        history.push('/movies');
       })
       .catch(() => {
         //Handle error
-        dispatch(handleAuthError("Invalid login, please try again"));
+        dispatch(handleAuthError('Invalid login, please try again'));
       });
   };
 }
@@ -96,6 +97,13 @@ export function handleAuthError(error) {
 }
 
 export function signoutUser() {
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
   return { type: UNAUTH_USER };
+}
+
+export function toggleTheme(theme) {
+  return {
+    type: TOGGLE_THEME,
+    payload: theme
+  };
 }

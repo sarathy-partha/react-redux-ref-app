@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { increaseCounter, decreaseCounter, setTitle } from "../actions/index";
-import { bindActionCreators } from "redux";
-import Button from "@material-ui/core/Button";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { increaseCounter, decreaseCounter, setTitle } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 
 class Counter extends Component {
   counter() {
@@ -11,8 +11,8 @@ class Counter extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.setTitle("Simple Counter");
-    document.title = "Counter";
+    this.props.setTitle('Simple Counter');
+    document.title = 'Counter';
   }
 
   render() {

@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { reduxForm } from "redux-form";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Field from "redux-form/lib/Field";
-import connect from "react-redux/lib/connect/connect";
-import * as actions from "../../actions";
-import Grid from "@material-ui/core/Grid";
+import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Field from 'redux-form/lib/Field';
+import connect from 'react-redux/lib/connect/connect';
+import * as actions from '../../actions';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    width: "100%"
+    width: '100%'
   },
   container: {},
   textField: {
@@ -24,7 +24,7 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   input: {
-    display: "none"
+    display: 'none'
   }
 });
 
@@ -71,8 +71,8 @@ const renderInput = field => {
 
 class SignUp extends Component {
   UNSAFE_componentWillMount() {
-    this.props.setTitle("Register");
-    document.title = "Register";
+    this.props.setTitle('Register');
+    document.title = 'Register';
   }
 
   handleFormSubmit({ email, password }) {
@@ -145,8 +145,8 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  form: "register",
-  fields: ["email", "password", "passwordConfirm"]
+  form: 'register',
+  fields: ['email', 'password', 'passwordConfirm']
 })(
   withStyles(styles)(
     connect(

@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Webcam from "react-webcam";
-import axios from "axios";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import TextField from "@material-ui/core/TextField";
-import { config } from "../../helper/config";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Webcam from 'react-webcam';
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
+import { config } from '../../helper/config';
 
 // loader styling
 const style = {
   container: {
-    position: "absolute"
+    position: 'absolute'
   },
   refresh: {
-    display: "inline-block",
-    position: "absolute"
+    display: 'inline-block',
+    position: 'absolute'
   },
   hide: {
-    display: "none",
-    position: "absolute"
+    display: 'none',
+    position: 'absolute'
   }
 };
 
@@ -27,7 +27,7 @@ class faceSignUp extends Component {
     super(props);
 
     this.state = {
-      username: "",
+      username: '',
       load: false
     };
   }
@@ -37,8 +37,8 @@ class faceSignUp extends Component {
   };
 
   capture = () => {
-    if (this.state.username === "" || this.state.username === " ") {
-      alert("Username cannot be empty");
+    if (this.state.username === '' || this.state.username === ' ') {
+      alert('Username cannot be empty');
       return;
     }
 
@@ -52,14 +52,14 @@ class faceSignUp extends Component {
       .post(
         `https://api.kairos.com/enroll`,
         {
-          gallery_name: "ParthaGallery",
+          gallery_name: 'ParthaGallery',
           image: imageSrc,
           subject_id: this.state.username
         },
         {
           headers: {
-            app_id: "c1c8ba1e",
-            app_key: "db950295f78bfe49ba073ae533f2fdb3"
+            app_id: 'c1c8ba1e',
+            app_key: 'db950295f78bfe49ba073ae533f2fdb3'
           }
         }
       )
@@ -81,7 +81,7 @@ class faceSignUp extends Component {
       .post(
         `https://api.kairos.com/gallery/remove`,
         {
-          gallery_name: "ParthaGallery"
+          gallery_name: 'ParthaGallery'
         },
         {
           headers: {
@@ -91,7 +91,7 @@ class faceSignUp extends Component {
         }
       )
       .then(response => {
-        alert("Gallery has been reset. Feel free to register now" + response);
+        alert('Gallery has been reset. Feel free to register now' + response);
         this.setState({
           load: false
         });
@@ -110,7 +110,7 @@ class faceSignUp extends Component {
         <Grid fluid="true">
           <Grid container>
             <Grid item xs={12} md={4} mdoffset={4}>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 <h3>REGISTER FACE</h3>
                 <Webcam
                   audio={false}
@@ -120,7 +120,7 @@ class faceSignUp extends Component {
                   width={320}
                 />
                 <br />
-                <div style={{ margin: "0 auto!important" }}>
+                <div style={{ margin: '0 auto!important' }}>
                   <TextField
                     placeholder="provide identification name"
                     helperText="Username"

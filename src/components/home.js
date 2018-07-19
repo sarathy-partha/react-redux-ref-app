@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-
+import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
 class Home extends Component {
   defaultState = { data: null, error: null };
 
@@ -12,7 +12,9 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to React Redux Demo</h1>
+        <Typography align="center" variant="display4" color="secondary">
+          Welcome to React Redux Demo
+        </Typography>
       </div>
     );
   }

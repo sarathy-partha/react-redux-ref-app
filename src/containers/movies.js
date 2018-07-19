@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getMovies, setTitle } from "../actions";
-import _ from "lodash";
-import PropTypes from "prop-types";
-import Grid from "@material-ui/core/Grid";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import purple from "@material-ui/core/colors/purple";
-import MoviesList from "../components/moviesList";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { blockParams } from "handlebars";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getMovies, setTitle } from '../actions';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import purple from '@material-ui/core/colors/purple';
+import MoviesList from '../components/moviesList';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const style = {
   root: {
@@ -18,12 +17,12 @@ const style = {
     width: 345
   },
   details: {
-    display: "flex",
+    display: 'flex',
     marginTop: 15
   },
   content: {
     height: 200,
-    overflow: "auto"
+    overflow: 'auto'
   },
   media: {
     height: 500
@@ -32,7 +31,7 @@ const style = {
     marginRight: 15
   }
 };
-
+let transitionDelay = 500;
 class Movies extends Component {
   componentDidMount() {
     //if (this.props.authenticated)
@@ -42,18 +41,21 @@ class Movies extends Component {
   UNSAFE_componentWillMount() {
     //if (!this.props.authenticated)
     //  history.push('/noaccess')
-    this.props.setTitle("Now Playing");
-    document.title = "Movies";
+    this.props.setTitle('Now Playing');
+    document.title = 'Movies';
   }
 
   renderMovies() {
     return (
       <TransitionGroup component={null}>
         {this.props.movies[0].map(data => (
-          <CSSTransition appear={true} timeout={500} classNames="movielist" key={data.id}>
-            <div>
-              <MoviesList data={data} />
-            </div>
+          <CSSTransition
+            appear={true}
+            timeout={(transitionDelay += 500)}
+            classNames="movielist"
+            key={data.id}
+          >
+            <MoviesList data={data} key={data.id} />
           </CSSTransition>
         ))}
       </TransitionGroup>
@@ -64,7 +66,7 @@ class Movies extends Component {
     if (!_.isEmpty(this.props.movies)) {
       return (
         <div style={style.root}>
-          <Grid style={{ width: "100%", marginTop: 5 }} container justify="center">
+          <Grid style={{ width: '100%', marginTop: 5 }} container justify="center">
             {this.renderMovies()}
           </Grid>
         </div>
