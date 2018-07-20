@@ -39,8 +39,15 @@ class MoviesList extends Component {
     return (
       <div key={this.props.data.id}>
         <Grid style={{ padding: 4 }} xs item>
-          <Card style={style.card}>
-            <CardMedia style={style.media} image={MOVIE_POSTER_URL + this.props.data.poster_path} />
+          <Card style={style.card} className="card">
+            <CardMedia
+              style={style.media}
+              className="media"
+              image={MOVIE_POSTER_URL + this.props.data.poster_path}
+            />
+            <Typography variant="subheading" className="mediaText">
+              {this.props.data.overview}
+            </Typography>
             <CardContent>
               <Typography variant="headline">{this.props.data.title}</Typography>
               <LinearProgress
@@ -56,7 +63,7 @@ class MoviesList extends Component {
                 >
                   <FavoriteBorder />
                 </Badge>
-                <Typography variant="body2">Releasing : {this.props.data.release_date}</Typography>
+                <Typography variant="body2">Date : {this.props.data.release_date}</Typography>
               </div>
               <CastCrew movie={this.props.data.id} />
             </CardContent>

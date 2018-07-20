@@ -46,7 +46,7 @@ class Movies extends Component {
   }
 
   componentDidUpdate() {
-    this.props.setTitle('Top Rated : Scrolled to Page ' + this.props.totalPages);
+    this.props.setTitle('Popular Movies : Scrolled to Page ' + this.props.totalPages);
   }
 
   renderMovies() {
