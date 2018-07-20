@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import purple from '@material-ui/core/colors/purple';
 import MoviesList from '../components/moviesList';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const style = {
   root: {
@@ -33,14 +34,14 @@ const style = {
 };
 let transitionDelay = 500;
 class Movies extends Component {
-  componentDidMount() {
-    //if (this.props.authenticated)
-    this.props.getMovies();
+  constructor(props) {
+    super(props);
+    this.state = { hasMore: true };
   }
 
-  UNSAFE_componentWillMount() {
-    //if (!this.props.authenticated)
-    //  history.push('/noaccess')
+  componentDidMount() {
+    //if (this.props.authenticated)
+    this.props.getMovies(1);
     this.props.setTitle('Now Playing');
     document.title = 'Movies';
   }
@@ -48,31 +49,58 @@ class Movies extends Component {
   renderMovies() {
     return (
       <TransitionGroup component={null}>
-        {this.props.movies[0].map(data => (
-          <CSSTransition
-            appear={true}
-            timeout={(transitionDelay += 500)}
-            classNames="movielist"
-            key={data.id}
-          >
-            <MoviesList data={data} key={data.id} />
-          </CSSTransition>
-        ))}
+        {this.props.movies.map(data => {
+          return (
+            <CSSTransition
+              appear={true}
+              timeout={transitionDelay}
+              classNames="movielist"
+              key={data.id}
+            >
+              <MoviesList data={data} key={data.id} />
+            </CSSTransition>
+          );
+        })}
       </TransitionGroup>
     );
+  }
+
+  loadMoreMovies(page) {
+    this.props.getMovies(page);
+    if (this.props.totalPages === page) this.setState({ hasMore: false });
   }
 
   render() {
     if (!_.isEmpty(this.props.movies)) {
       return (
         <div style={style.root}>
-          <Grid style={{ width: '100%', marginTop: 5 }} container justify="center">
-            {this.renderMovies()}
-          </Grid>
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={this.loadMoreMovies.bind(this)}
+            hasMore={this.state.hasMore}
+            loader={
+              <CircularProgress
+                style={{ color: purple[500], marginLeft: '50%' }}
+                thickness={7}
+                size={100}
+                key="1"
+              />
+            }
+          >
+            <Grid style={{ width: '100%', marginTop: 5 }} container justify="center">
+              {this.renderMovies()}
+            </Grid>
+          </InfiniteScroll>
         </div>
       );
     } else {
-      return <CircularProgress style={{ color: purple[500] }} thickness={7} size={100} />;
+      return (
+        <CircularProgress
+          style={{ color: purple[500], marginLeft: '50%' }}
+          thickness={7}
+          size={100}
+        />
+      );
     }
   }
 }
@@ -80,6 +108,7 @@ class Movies extends Component {
 function mapStateToProps(state) {
   return {
     movies: state.movies,
+    totalPages: state.totalPages,
     title: state.title,
     authenticated: state.authenticated.authenticated
   };
@@ -87,8 +116,9 @@ function mapStateToProps(state) {
 
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
-  setTitle: PropTypes.string.isRequired,
-  getMovies: PropTypes.func.isRequired
+  setTitle: PropTypes.func.isRequired,
+  getMovies: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired
 };
 
 export default connect(

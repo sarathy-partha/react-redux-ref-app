@@ -108,7 +108,7 @@ class CastCrew extends Component {
 }
 
 CastCrew.propTypes = {
-  movie: PropTypes.object.isRequired
+  movie: PropTypes.number.isRequired
 };
 
 export default CastCrew;

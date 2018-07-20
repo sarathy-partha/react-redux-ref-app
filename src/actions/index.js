@@ -7,14 +7,15 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  TOGGLE_THEME
+  TOGGLE_THEME,
+  TOTAL_PAGES
 } from './types';
 import history from '../helper/history';
 import { config } from '../helper/config';
 
 const MOVIES_URL = config.tmbMoviesURL;
 const CASTCREW_URL = config.tmpCastCrewURL;
-const API_KEY = 'api_key=' + config.tmbAPIKey + '&page=1&region=US';
+const API_KEY = 'api_key=' + config.tmbAPIKey + '&region=US';
 
 const API_ROOT_URL = config.apiURL;
 
@@ -41,18 +42,22 @@ export function decreaseCounter(counter) {
   };
 }
 
-function fetchMovies() {
-  return axios.get(`${MOVIES_URL}${API_KEY}`);
+function fetchMovies(page) {
+  return axios.get(`${MOVIES_URL}${API_KEY}&page=${page}`);
 }
 
-export function getMovies() {
+export function getMovies(page) {
   return function(dispatch) {
-    return fetchMovies().then(request =>
+    return fetchMovies(page).then(response => {
       dispatch({
         type: FETCH_MOVIES,
-        payload: request
-      })
-    );
+        payload: response.data
+      });
+      dispatch({
+        type: TOTAL_PAGES,
+        payload: response.data.total_pages
+      });
+    });
   };
 }
 

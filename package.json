@@ -42,6 +42,7 @@
     "react": "^16.4.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.1",
+    "react-infinite-scroller": "^1.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
@@ -69,14 +70,14 @@
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/addon-links": "^3.4.8",
+    "@storybook/addons": "^3.4.8",
+    "@storybook/react": "^3.4.8",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
     "prettier": "^1.13.7",
-    "redux-devtools-extension": "^2.13.5",
-    "@storybook/react": "^3.4.8",
-    "@storybook/addon-actions": "^3.4.8",
-    "@storybook/addon-links": "^3.4.8",
-    "@storybook/addons": "^3.4.8"
+    "redux-devtools-extension": "^2.13.5"
   },
   "babel": {
     "presets": [

@@ -30,7 +30,7 @@ const logo =
 export class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { theme: 'Make it Light' };
+    this.state = { toggleThemeBtn: 'Turn on light' };
   }
   authButton() {
     if (this.props.authenticated) {
@@ -53,12 +53,12 @@ export class Header extends Component {
   render() {
     const { classes } = this.props;
     const toggleTheme = () => {
-      if (this.state.theme === 'Make it Dark') {
+      if (this.state.toggleThemeBtn === 'Turn off light') {
         this.props.toggleTheme('dark');
-        this.setState({ theme: 'Make it Light' });
+        this.setState({ toggleThemeBtn: 'Turn on light' });
       } else {
         this.props.toggleTheme('light');
-        this.setState({ theme: 'Make it Dark' });
+        this.setState({ toggleThemeBtn: 'Turn off light' });
       }
     };
 
@@ -73,7 +73,7 @@ export class Header extends Component {
               {this.props.title}
             </Typography>
             <Button onClick={toggleTheme} color="secondary">
-              {this.state.theme}
+              {this.state.toggleThemeBtn}
             </Button>
             <Button component={Link} to="/counter" color="secondary">
               Counter
@@ -101,7 +101,7 @@ export class Header extends Component {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  authenticated: PropTypes.any,
   title: PropTypes.string.isRequired,
   toggleTheme: PropTypes.func.isRequired
 };
