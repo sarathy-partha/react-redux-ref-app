@@ -42,12 +42,14 @@ class Movies extends Component {
   componentDidMount() {
     //if (this.props.authenticated)
     this.props.getMovies(1);
-    this.props.setTitle('Top Rated');
     document.title = 'Movies';
   }
 
+  componentDidUpdate() {
+    this.props.setTitle('Top Rated : Scrolled to Page ' + this.props.totalPages);
+  }
+
   renderMovies() {
-    this.props.setTitle('Top Rated : ' + 'Scrolled to Page ' + this.props.totalPages);
     return (
       <TransitionGroup component={null}>
         {this.props.movies.map(data => {
@@ -119,7 +121,7 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  totalPages: PropTypes.number.isRequired
+  totalPages: PropTypes.any.isRequired
 };
 
 export default connect(
