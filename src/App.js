@@ -23,6 +23,7 @@ import facesignin from './components/auth/facesignin';
 import Counter from './containers/counter';
 import Movies from './containers/movies';
 import Unauthorized from './components/unauthorized';
+import moviesVirtualized from './containers/moviesVirtualized';
 
 const darkPalette = {
   primary: purple,
@@ -50,7 +51,7 @@ export class App extends Component {
         <MuiThemeProvider theme={setTheme(this.props.theme)}>
           <CssBaseline />
           <Header />
-          <div style={{ marginTop: 70 }}>
+          <div style={{ marginTop: 70, height: '100%' }}>
             <Route path="/" exact component={Home} />
             <Route path="/counter" component={Counter} />
             <Route path="/movies" component={Movies} />
@@ -60,6 +61,7 @@ export class App extends Component {
             <Route path="/signup" component={signup} />
             <Route path="/faceregister" component={facesignup} />
             <Route path="/facesignin" component={facesignin} />
+            <Route path="/movies-virtualized" component={moviesVirtualized} />
           </div>
         </MuiThemeProvider>
       </Router>

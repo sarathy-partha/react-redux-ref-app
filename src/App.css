@@ -101,3 +101,24 @@
   left: 2%;
   text-align: justify;
 }
+
+.moviesRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2px;
+}
+.movieCard {
+  width: 340px;
+  height: 816px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+}
+
+.media {
+  height: 100%;
+  width: 100%;
+}

@@ -81,8 +81,8 @@ export class Header extends Component {
             <Button component={Link} to="/movies" color="secondary">
               Movies
             </Button>
-            <Button component={Link} to="/parallax" color="secondary">
-              Parallax
+            <Button component={Link} to="/movies-virtualized" color="secondary">
+              Virtualized Cards
             </Button>
             {/* <Button component={Link} to="/faceregister" color="secondary">
               Face Register
