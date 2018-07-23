@@ -45,7 +45,7 @@ class MoviesList extends Component {
               className="media"
               image={MOVIE_POSTER_URL + this.props.data.poster_path}
             />
-            <Typography variant="subheading" className="mediaText">
+            <Typography variant="subheading" className="mediaText1">
               {this.props.data.overview}
             </Typography>
             <CardContent>

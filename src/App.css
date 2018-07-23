@@ -88,11 +88,28 @@
   opacity: 0.3;
 }
 
-.card:hover .mediaText {
+.card:hover .mediaText1 {
+  opacity: 1;
+}
+
+.movieCard:hover .media {
+  opacity: 0.3;
+}
+
+.movieCard:hover .mediaText {
   opacity: 1;
 }
 
 .mediaText {
+  transition: 0.5s ease;
+  width: 390px;
+  opacity: 0;
+  position: absolute;
+  padding-left: 5px;
+  text-align: justify;
+}
+
+.mediaText1 {
   transition: 0.5s ease;
   width: 390px;
   opacity: 0;

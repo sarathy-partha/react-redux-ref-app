@@ -11,7 +11,7 @@ class Counter extends Component {
     return this.props.counter;
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.props.setTitle('Simple Counter');
     document.title = 'Counter';
   }
