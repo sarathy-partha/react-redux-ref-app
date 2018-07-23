@@ -43,12 +43,15 @@ class MoviesVirtualized extends PureComponent {
   }
 
   componentDidUpdate() {
-    this.props.setTitle(
-      'Virtualized cards - Keep scrolling, you are at page ' +
-        this.props.page.page +
-        ' / ' +
-        this.props.page.totalPages
-    );
+    if (this.props.page.totalPages <= this.props.page.page)
+      this.props.setTitle('Virtualized cards - You scrolled all pages');
+    else
+      this.props.setTitle(
+        'Virtualized cards - Keep scrolling, you scrolled till page ' +
+          this.props.page.page +
+          ' / ' +
+          this.props.page.totalPages
+      );
   }
 
   componentWillUnmount() {
@@ -171,7 +174,7 @@ class MoviesVirtualized extends PureComponent {
                             width={width}
                             height={height}
                             rowCount={rowCount}
-                            rowHeight={710}
+                            rowHeight={820}
                             rowRenderer={this.rowRenderer}
                             scrollTop={scrollTop}
                           />

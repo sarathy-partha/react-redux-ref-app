@@ -82,7 +82,7 @@ export class Header extends Component {
               Movies
             </Button>
             <Button component={Link} to="/movies-virtualized" color="secondary">
-              Virtualized Cards
+              Movies Virtualized
             </Button>
             {/* <Button component={Link} to="/faceregister" color="secondary">
               Face Register

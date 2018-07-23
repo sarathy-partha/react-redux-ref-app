@@ -15,7 +15,7 @@ import { config } from '../helper/config';
 
 const MOVIES_URL = config.tmbMoviesURL;
 const CASTCREW_URL = config.tmpCastCrewURL;
-const API_KEY = 'api_key=' + config.tmbAPIKey + '&region=US';
+const API_KEY = 'api_key=' + config.tmbAPIKey;
 
 const API_ROOT_URL = config.apiURL;
 
