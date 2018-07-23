@@ -15,7 +15,7 @@ const style = {
     flexGrow: 1
   },
   card: {
-    width: 345
+    width: 400
   },
   details: {
     display: 'flex',

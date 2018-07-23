@@ -55,7 +55,7 @@ export function getMovies(page) {
       });
       dispatch({
         type: TOTAL_PAGES,
-        payload: response.data.page + ' / ' + response.data.total_pages
+        payload: response.data
       });
     });
   };

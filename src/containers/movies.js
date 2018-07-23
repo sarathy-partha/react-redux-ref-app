@@ -46,7 +46,12 @@ class Movies extends Component {
   }
 
   componentDidUpdate() {
-    this.props.setTitle('Popular Movies : Scrolled to Page ' + this.props.totalPages);
+    this.props.setTitle(
+      'Popular Movies : Scrolled to Page ' +
+        this.props.totalPages.page +
+        ' / ' +
+        this.props.totalPages.totalPages
+    );
   }
 
   renderMovies() {
@@ -70,7 +75,8 @@ class Movies extends Component {
 
   loadMoreMovies(page) {
     this.props.getMovies(page);
-    if (this.props.totalPages === page) this.setState({ hasMore: false });
+    console.log(page, this.props.totalPages.totalPages);
+    if (this.props.totalPages.totalPages <= page) this.setState({ hasMore: false });
   }
 
   render() {

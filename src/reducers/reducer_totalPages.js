@@ -1,9 +1,9 @@
 import { TOTAL_PAGES } from '../actions/types';
 
-export default (state = 0, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case TOTAL_PAGES:
-      return action.payload;
+      return { page: action.payload.page, totalPages: action.payload.total_pages };
     default:
       return state;
   }

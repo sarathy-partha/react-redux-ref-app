@@ -43,7 +43,12 @@ class MoviesVirtualized extends PureComponent {
   }
 
   componentDidUpdate() {
-    this.props.setTitle('Virtualized cards - Keep scrolling, you are at ' + this.props.totalPages);
+    this.props.setTitle(
+      'Virtualized cards - Keep scrolling, you are at page ' +
+        this.props.page.page +
+        ' / ' +
+        this.props.page.totalPages
+    );
   }
 
   componentWillUnmount() {
@@ -65,11 +70,11 @@ class MoviesVirtualized extends PureComponent {
     });
 
     const timeoutId = setTimeout(() => {
-      const { loadedRowCount, loadingRowCount } = this.state;
+      const { loadedRowCount } = this.state;
 
       delete this.timeoutIdMap[timeoutId];
 
-      for (var i = startIndex; i <= stopIndex; i++) {
+      for (i = startIndex; i <= stopIndex; i++) {
         loadedRowsMap[i] = STATUS_LOADED;
       }
 
@@ -121,7 +126,7 @@ class MoviesVirtualized extends PureComponent {
               </Badge>
               <Typography variant="body2">Date : {movie.release_date}</Typography>
             </div>
-            {/* <CastCrew movie={movie.id} /> */}
+            <CastCrew movie={movie.id} />
           </CardContent>
         </Card>
       );
@@ -143,27 +148,32 @@ class MoviesVirtualized extends PureComponent {
             <InfiniteLoader
               isRowLoaded={this.isRowLoaded}
               loadMoreRows={this.loadMoreRows}
-              rowCount={this.props.movies.length}
+              rowCount={
+                this.props.page.page === this.props.page.totalPages
+                  ? this.props.movies.length + 1
+                  : this.props.movies.length
+              }
+              minimumBatchSize={5}
             >
               {({ onRowsRendered, registerChild }) => (
                 <WindowScroller>
                   {({ height, isScrolling, scrollTop }) => (
-                    <AutoSizer>
+                    <AutoSizer disableHeight>
                       {({ width }) => {
-                        itemsPerRow = Math.floor(width / 400);
+                        itemsPerRow = Math.floor(width / 415);
                         const rowCount = Math.ceil(this.props.movies.length / itemsPerRow);
                         return (
                           <List
-                            onRowsRendered={onRowsRendered}
                             ref={registerChild}
+                            onRowsRendered={onRowsRendered}
                             isScrolling={isScrolling}
-                            scrollTop={scrollTop}
                             autoHeight
                             width={width}
                             height={height}
                             rowCount={rowCount}
                             rowHeight={710}
                             rowRenderer={this.rowRenderer}
+                            scrollTop={scrollTop}
                           />
                         );
                       }}
@@ -190,7 +200,7 @@ class MoviesVirtualized extends PureComponent {
 function mapStateToProps(state) {
   return {
     movies: state.movies,
-    totalPages: state.totalPages,
+    page: state.totalPages,
     title: state.title,
     authenticated: state.authenticated.authenticated
   };
@@ -200,7 +210,7 @@ MoviesVirtualized.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  totalPages: PropTypes.any.isRequired
+  page: PropTypes.object.isRequired
 };
 
 export default connect(
