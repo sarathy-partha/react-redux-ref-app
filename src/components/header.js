@@ -7,9 +7,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { toggleTheme } from '../actions';
+import Hidden from '@material-ui/core/Hidden';
+import withWidth from '@material-ui/core/withWidth';
 
 const styles = {
   root: {
@@ -64,36 +66,51 @@ export class Header extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton color="secondary" className={classes.menuButton} aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="secondary" className={classes.flex}>
-              {this.props.title}
-            </Typography>
-            <Button onClick={toggleTheme} color="secondary">
-              {this.state.toggleThemeBtn}
-            </Button>
-            <Button component={Link} to="/counter" color="secondary">
-              Counter
-            </Button>
-            <Button component={Link} to="/movies" color="secondary">
-              Movies
-            </Button>
-            <Button component={Link} to="/movies-virtualized" color="secondary">
-              Movies Virtualized
-            </Button>
-            {/* <Button component={Link} to="/faceregister" color="secondary">
+        <Hidden mdDown>
+          <AppBar position="fixed">
+            <Toolbar>
+              <IconButton color="secondary" className={classes.menuButton} aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="secondary" className={classes.flex}>
+                {this.props.title}
+              </Typography>
+              <Button onClick={toggleTheme} color="secondary">
+                {this.state.toggleThemeBtn}
+              </Button>
+              <Button component={Link} to="/counter" color="secondary">
+                Counter
+              </Button>
+              <Button component={Link} to="/movies" color="secondary">
+                Movies
+              </Button>
+              <Button component={Link} to="/movies-virtualized" color="secondary">
+                Movies Virtualized
+              </Button>
+              {/* <Button component={Link} to="/faceregister" color="secondary">
               Face Register
             </Button>
             <Button component={Link} to="/facesignin" color="secondary">
               Face Sign In
             </Button> */}
-            {this.authButton()}
-            <img alt="TMDb" src={logo} style={{ width: 50 }} />
-          </Toolbar>
-        </AppBar>
+              {this.authButton()}
+              <img alt="TMDb" src={logo} style={{ width: 50 }} />
+            </Toolbar>
+          </AppBar>
+        </Hidden>
+        <Hidden lgUp>
+          <AppBar position="fixed">
+            <Toolbar>
+              <IconButton color="secondary" className={classes.menuButton} aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="subheading" color="secondary" className={classes.flex}>
+                {this.props.title}
+              </Typography>
+              <img alt="TMDb" src={logo} style={{ width: 50 }} />
+            </Toolbar>
+          </AppBar>
+        </Hidden>
       </div>
     );
   }
@@ -109,11 +126,12 @@ Header.propTypes = {
 function mapStateToProps(state) {
   return {
     authenticated: state.authenticated.authenticated,
-    title: state.title
+    title: state.title,
+    width: PropTypes.string.isRequired
   };
 }
 
 export default connect(
   mapStateToProps,
   { toggleTheme }
-)(withTheme()(withStyles(styles)(Header)));
+)(withWidth()(withStyles(styles)(Header)));

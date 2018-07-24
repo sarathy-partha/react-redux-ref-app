@@ -31,7 +31,7 @@ class CastCrew extends Component {
   }
 
   componentDidMount() {
-    const CASTCREW_URL = 'http://api.themoviedb.org/3/movie';
+    const CASTCREW_URL = 'https://api.themoviedb.org/3/movie';
     const API_KEY = 'api_key=' + config.tmbAPIKey;
     axios.get(`${CASTCREW_URL}/${this.props.movie}/credits?${API_KEY}`).then(response => {
       this.setState({ cast: _.take(response.data.cast, 4) });
@@ -40,7 +40,7 @@ class CastCrew extends Component {
   }
 
   renderCast() {
-    const MOVIE_CAST_URL = 'http://image.tmdb.org/t/p/w154';
+    const MOVIE_CAST_URL = 'https://image.tmdb.org/t/p/w154';
     if (!_.isEmpty(this.state)) {
       return (
         <TransitionGroup style={style.row}>
@@ -71,7 +71,7 @@ class CastCrew extends Component {
   }
 
   renderCrew() {
-    const MOVIE_CAST_URL = 'http://image.tmdb.org/t/p/w154';
+    const MOVIE_CAST_URL = 'https://image.tmdb.org/t/p/w154';
     if (!_.isEmpty(this.state)) {
       return (
         <TransitionGroup style={style.row}>

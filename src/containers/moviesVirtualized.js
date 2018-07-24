@@ -160,7 +160,7 @@ class MoviesVirtualized extends PureComponent {
                   {({ height, isScrolling, scrollTop }) => (
                     <AutoSizer disableHeight>
                       {({ width }) => {
-                        itemsPerRow = Math.floor(width / 415);
+                        itemsPerRow = Math.floor(width / 310);
                         const rowCount = Math.ceil(this.props.movies.length / itemsPerRow);
                         return (
                           <List
