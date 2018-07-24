@@ -86,8 +86,6 @@ class MoviesVirtualized extends PureComponent {
         loadedRowCount: loadedRowCount + increment
       });
 
-      console.log(startIndex, stopIndex, this.props.movies.length, this.state.loadedRowCount);
-      //   if (this.state.loadedRowCount <= this.props.movies.length)
       this.props.getMovies(Math.ceil(this.props.movies.length / 20) + 1);
 
       promiseResolver();
@@ -144,7 +142,6 @@ class MoviesVirtualized extends PureComponent {
 
   render() {
     if (!_.isEmpty(this.props.movies)) {
-      console.log(this.props.movies.length);
       return (
         <div style={{ display: 'flex', height: '100vh', width: '100%' }}>
           <div style={{ flex: '1 1 auto' }}>

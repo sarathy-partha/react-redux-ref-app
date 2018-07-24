@@ -7,3 +7,30 @@ body {
 #root {
   height: 100vh;
 }
+
+::selection {
+  color: purple;
+  background: lightgoldenrodyellow;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: gray;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: purple;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: deepskyblue;
+}
