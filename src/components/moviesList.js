@@ -33,7 +33,7 @@ const style = {
   }
 };
 
-const MOVIE_POSTER_URL = 'http://image.tmdb.org/t/p/w500';
+const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 class MoviesList extends Component {
   render() {
     return (

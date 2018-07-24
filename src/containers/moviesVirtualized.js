@@ -16,7 +16,7 @@ import CastCrew from '../components/castcrew';
 import purple from '@material-ui/core/colors/purple';
 import { InfiniteLoader, WindowScroller, List, AutoSizer } from 'react-virtualized';
 
-const MOVIE_POSTER_URL = 'http://image.tmdb.org/t/p/w500';
+const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 const STATUS_LOADING = 1;
 const STATUS_LOADED = 2;
 let itemsPerRow = 0;
