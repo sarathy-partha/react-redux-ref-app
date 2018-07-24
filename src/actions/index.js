@@ -12,6 +12,7 @@ import {
 } from './types';
 import history from '../helper/history';
 import { config } from '../helper/config';
+import _ from 'lodash';
 
 const MOVIES_URL = config.tmbMoviesURL;
 const CASTCREW_URL = config.tmpCastCrewURL;
@@ -57,6 +58,18 @@ export function getMovies(page) {
         type: TOTAL_PAGES,
         payload: response.data
       });
+      response.data.results.map(movieId => {
+        return getCastCrew(movieId.id).then(castcrew => {
+          dispatch({
+            type: FETCH_CASTCREW,
+            payload: {
+              id: castcrew.data.id,
+              cast: _.take(castcrew.data.cast, 4),
+              crew: _.take(castcrew.data.crew, 4)
+            }
+          });
+        });
+      });
     });
   };
 }
@@ -65,10 +78,7 @@ export function getMovies(page) {
 export function getCastCrew(id) {
   const castcrew = axios.get(`${CASTCREW_URL}/${id}/credits?${API_KEY}`);
 
-  return {
-    type: FETCH_CASTCREW,
-    payload: castcrew
-  };
+  return castcrew;
 }
 
 export function setTitle(title) {

@@ -109,9 +109,11 @@ class MoviesVirtualized extends PureComponent {
     const movies = [];
     const fromIndex = index * itemsPerRow;
     const toIndex = Math.min(fromIndex + itemsPerRow, this.props.movies.length);
-
     for (let i = fromIndex; i < toIndex; i++) {
       const movie = this.props.movies[i];
+      var result = this.props.castCrew.find(obj => {
+        return obj.id === movie.id;
+      });
       movies.push(
         <Card className="movieCard" key={movie.id}>
           <CardMedia className="media" image={MOVIE_POSTER_URL + movie.poster_path} />
@@ -127,7 +129,7 @@ class MoviesVirtualized extends PureComponent {
               </Badge>
               <Typography variant="body2">Date : {movie.release_date}</Typography>
             </div>
-            <CastCrew movie={movie.id} />
+            <CastCrew castCrew={result} />
           </CardContent>
         </Card>
       );
@@ -153,14 +155,14 @@ class MoviesVirtualized extends PureComponent {
                   ? this.props.movies.length + 1
                   : this.props.movies.length
               }
-              minimumBatchSize={5}
+              minimumBatchSize={4}
             >
               {({ onRowsRendered, registerChild }) => (
                 <WindowScroller>
                   {({ height, isScrolling, scrollTop }) => (
                     <AutoSizer disableHeight>
                       {({ width }) => {
-                        itemsPerRow = Math.floor(width / 310);
+                        itemsPerRow = Math.floor(width / 320);
                         const rowCount = Math.ceil(this.props.movies.length / itemsPerRow);
                         return (
                           <List
@@ -202,7 +204,8 @@ function mapStateToProps(state) {
     movies: state.movies,
     page: state.totalPages,
     title: state.title,
-    authenticated: state.authenticated.authenticated
+    authenticated: state.authenticated.authenticated,
+    castCrew: state.castCrew
   };
 }
 
@@ -210,7 +213,8 @@ MoviesVirtualized.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  page: PropTypes.object.isRequired
+  page: PropTypes.object.isRequired,
+  castCrew: PropTypes.array.isRequired
 };
 
 export default connect(

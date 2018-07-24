@@ -65,7 +65,7 @@ class Movies extends Component {
               classNames="movielist"
               key={data.id}
             >
-              <MoviesList data={data} key={data.id} />
+              <MoviesList data={data} castCrew={this.props.castCrew} key={data.id} />
             </CSSTransition>
           );
         })}
@@ -75,7 +75,6 @@ class Movies extends Component {
 
   loadMoreMovies(page) {
     this.props.getMovies(page);
-    console.log(page, this.props.totalPages.totalPages);
     if (this.props.totalPages.totalPages <= page) this.setState({ hasMore: false });
   }
 
@@ -119,7 +118,8 @@ function mapStateToProps(state) {
     movies: state.movies,
     totalPages: state.totalPages,
     title: state.title,
-    authenticated: state.authenticated.authenticated
+    authenticated: state.authenticated.authenticated,
+    castCrew: state.castCrew
   };
 }
 
@@ -127,7 +127,8 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  totalPages: PropTypes.any.isRequired
+  totalPages: PropTypes.any.isRequired,
+  castCrew: PropTypes.any
 };
 
 export default connect(

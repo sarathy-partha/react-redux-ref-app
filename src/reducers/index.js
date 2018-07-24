@@ -5,6 +5,7 @@ import authenticateReducer from './authenticate';
 import titleReducer from './reducer_title';
 import themeReducer from './reducer_theme';
 import totalPagesReducer from './reducer_totalPages';
+import castcrewReducer from './reducer_castcrew';
 import { reducer as form } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   title: titleReducer,
   currentTheme: themeReducer,
   totalPages: totalPagesReducer,
+  castCrew: castcrewReducer,
   form
 });
 
