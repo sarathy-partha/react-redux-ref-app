@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { toggleTheme } from '../actions';
 import Hidden from '@material-ui/core/Hidden';
-import withWidth from '@material-ui/core/withWidth';
 
 const styles = {
   root: {
@@ -87,6 +86,7 @@ export class Header extends Component {
               <Button component={Link} to="/movies-virtualized" color="secondary">
                 Movies Virtualized
               </Button>
+              <Button color="secondary">Search</Button>
               {/* <Button component={Link} to="/faceregister" color="secondary">
               Face Register
             </Button>
@@ -126,12 +126,11 @@ Header.propTypes = {
 function mapStateToProps(state) {
   return {
     authenticated: state.authenticated.authenticated,
-    title: state.title,
-    width: PropTypes.string.isRequired
+    title: state.title
   };
 }
 
 export default connect(
   mapStateToProps,
   { toggleTheme }
-)(withWidth()(withStyles(styles)(Header)));
+)(withStyles(styles)(Header));

@@ -13,6 +13,7 @@ import {
 import history from '../helper/history';
 import { config } from '../helper/config';
 import _ from 'lodash';
+import { createSearchAction } from 'redux-search';
 
 const MOVIES_URL = config.tmbMoviesURL;
 const CASTCREW_URL = config.tmpCastCrewURL;
@@ -74,7 +75,8 @@ export function getMovies(page) {
   };
 }
 
-// Not used - Kept it to check possible solution to render nested components using Redux
+export const actions = { searchMovies: createSearchAction('movies') };
+
 export function getCastCrew(id) {
   const castcrew = axios.get(`${CASTCREW_URL}/${id}/credits?${API_KEY}`);
 

@@ -9,6 +9,7 @@ import purple from '@material-ui/core/colors/purple';
 import MoviesList from '../components/moviesList';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroller';
+import { getMovieList, getPageDetails, getTitle, getCastCrew } from '../reducers';
 
 const style = {
   root: {
@@ -115,11 +116,11 @@ class Movies extends Component {
 
 function mapStateToProps(state) {
   return {
-    movies: state.movies,
-    totalPages: state.totalPages,
-    title: state.title,
+    movies: getMovieList(state),
+    page: getPageDetails(state),
+    title: getTitle(state),
     authenticated: state.authenticated.authenticated,
-    castCrew: state.castCrew
+    castCrew: getCastCrew(state)
   };
 }
 

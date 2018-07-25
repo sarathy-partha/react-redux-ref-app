@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import { connect } from 'react-redux';
 import { getMovies, setTitle } from '../actions';
 import _ from 'lodash';
@@ -15,6 +14,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CastCrew from '../components/castcrew';
 import purple from '@material-ui/core/colors/purple';
 import { InfiniteLoader, WindowScroller, List, AutoSizer } from 'react-virtualized';
+import { getMovieList, getCastCrew, getPageDetails, getTitle } from '../reducers';
 
 const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 const STATUS_LOADING = 1;
@@ -201,11 +201,11 @@ class MoviesVirtualized extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    movies: state.movies,
-    page: state.totalPages,
-    title: state.title,
+    movies: getMovieList(state),
+    page: getPageDetails(state),
+    title: getTitle(state),
     authenticated: state.authenticated.authenticated,
-    castCrew: state.castCrew
+    castCrew: getCastCrew(state)
   };
 }
 
