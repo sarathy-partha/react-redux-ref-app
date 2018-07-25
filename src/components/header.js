@@ -55,7 +55,7 @@ export class Header extends Component {
 
   render() {
     const { classes } = this.props;
-    const toggleTheme = () => {
+    const changeTheme = () => {
       if (this.state.toggleThemeBtn === 'Turn off light') {
         this.props.dispatch(this.props.toggleTheme('dark'));
         this.setState({ toggleThemeBtn: 'Turn on light' });
@@ -76,7 +76,7 @@ export class Header extends Component {
               <Typography variant="title" color="secondary" className={classes.flex}>
                 {this.props.title}
               </Typography>
-              <Button onClick={toggleTheme} color="secondary">
+              <Button onClick={changeTheme} color="secondary">
                 {this.state.toggleThemeBtn}
               </Button>
               <Button component={Link} to="/counter" color="secondary">

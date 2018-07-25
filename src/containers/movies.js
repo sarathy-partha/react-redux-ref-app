@@ -76,7 +76,7 @@ class Movies extends Component {
 
   loadMoreMovies(page) {
     this.props.getMovies(page);
-    if (this.props.totalPages.totalPages <= page) this.setState({ hasMore: false });
+    if (this.props.page.totalPages <= page) this.setState({ hasMore: false });
   }
 
   render() {
