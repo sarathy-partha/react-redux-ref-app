@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { toggleTheme } from '../actions';
 import Hidden from '@material-ui/core/Hidden';
+import { createSearchAction } from '../../node_modules/redux-search';
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
   root: {
@@ -55,10 +57,10 @@ export class Header extends Component {
     const { classes } = this.props;
     const toggleTheme = () => {
       if (this.state.toggleThemeBtn === 'Turn off light') {
-        this.props.toggleTheme('dark');
+        this.props.dispatch(this.props.toggleTheme('dark'));
         this.setState({ toggleThemeBtn: 'Turn on light' });
       } else {
-        this.props.toggleTheme('light');
+        this.props.dispatch(this.props.toggleTheme('light'));
         this.setState({ toggleThemeBtn: 'Turn off light' });
       }
     };
@@ -86,7 +88,6 @@ export class Header extends Component {
               <Button component={Link} to="/movies-virtualized" color="secondary">
                 Movies Virtualized
               </Button>
-              <Button color="secondary">Search</Button>
               {/* <Button component={Link} to="/faceregister" color="secondary">
               Face Register
             </Button>
@@ -94,6 +95,15 @@ export class Header extends Component {
               Face Sign In
             </Button> */}
               {this.authButton()}
+              <TextField
+                id="search"
+                label="Search Movie"
+                type="search"
+                style={{ marginBottom: '20px' }}
+                onChange={event => {
+                  this.props.dispatch(this.props.searchMovies(event.target.value)).then(res => res);
+                }}
+              />
               <img alt="TMDb" src={logo} style={{ width: 50 }} />
             </Toolbar>
           </AppBar>
@@ -120,7 +130,9 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
   authenticated: PropTypes.any,
   title: PropTypes.string.isRequired,
-  toggleTheme: PropTypes.func.isRequired
+  toggleTheme: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  searchMovies: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -130,7 +142,13 @@ function mapStateToProps(state) {
   };
 }
 
+const mapDispatchToProps = dispatch => ({
+  searchMovies: createSearchAction('movies'),
+  toggleTheme: toggleTheme,
+  dispatch
+});
+
 export default connect(
   mapStateToProps,
-  { toggleTheme }
+  mapDispatchToProps
 )(withStyles(styles)(Header));

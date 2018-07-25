@@ -49,9 +49,9 @@ class Movies extends Component {
   componentDidUpdate() {
     this.props.setTitle(
       'Popular Movies : Scrolled to Page ' +
-        this.props.totalPages.page +
+        this.props.page.page +
         ' / ' +
-        this.props.totalPages.totalPages
+        this.props.page.totalPages
     );
   }
 
@@ -128,7 +128,7 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  totalPages: PropTypes.any.isRequired,
+  page: PropTypes.any.isRequired,
   castCrew: PropTypes.any
 };
 

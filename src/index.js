@@ -16,11 +16,10 @@ const createStoreWithMiddleware = createStore(
     applyMiddleware(reduxThunk),
     reduxSearch({
       resourceIndexes: {
-        moviesData: ['original_title', 'overview', 'title']
+        movies: ['original_title', 'title']
       },
-      moviesSelector: (resourceName, state) => {
-        console.log(state.movies.get(resourceName));
-        return state.movies.get(resourceName);
+      resourceSelector: (resourceName, state) => {
+        return state[resourceName];
       }
     })
   )

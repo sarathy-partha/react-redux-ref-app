@@ -75,7 +75,10 @@ export function getMovies(page) {
   };
 }
 
-export const actions = { searchMovies: createSearchAction('movies') };
+export const searchMoviesAction = dispatch => ({
+  searchMovies: createSearchAction('movies'),
+  dispatch
+});
 
 export function getCastCrew(id) {
   const castcrew = axios.get(`${CASTCREW_URL}/${id}/credits?${API_KEY}`);

@@ -14,7 +14,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CastCrew from '../components/castcrew';
 import purple from '@material-ui/core/colors/purple';
 import { InfiniteLoader, WindowScroller, List, AutoSizer } from 'react-virtualized';
-import { getMovieList, getCastCrew, getPageDetails, getTitle } from '../reducers';
+import { getMovieList, getCastCrew, getPageDetails, getTitle, searchResults } from '../reducers';
 
 const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 const STATUS_LOADING = 1;
@@ -108,9 +108,12 @@ class MoviesVirtualized extends PureComponent {
   rowRenderer({ index, key, style }) {
     const movies = [];
     const fromIndex = index * itemsPerRow;
-    const toIndex = Math.min(fromIndex + itemsPerRow, this.props.movies.length);
+    const toIndex = Math.min(fromIndex + itemsPerRow, this.props.searchResults.length);
     for (let i = fromIndex; i < toIndex; i++) {
-      const movie = this.props.movies[i];
+      const movie = this.props.movies.find(obj => {
+        console.log(this.props.searchResults[i]);
+        return obj.id === parseInt(this.props.searchResults[i]);
+      });
       var result = this.props.castCrew.find(obj => {
         return obj.id === movie.id;
       });
@@ -143,7 +146,7 @@ class MoviesVirtualized extends PureComponent {
   }
 
   render() {
-    if (!_.isEmpty(this.props.movies)) {
+    if (!_.isEmpty(this.props.searchResults)) {
       return (
         <div style={{ display: 'flex', height: '100vh', width: '100%' }}>
           <div style={{ flex: '1 1 auto' }}>
@@ -152,8 +155,8 @@ class MoviesVirtualized extends PureComponent {
               loadMoreRows={this.loadMoreRows}
               rowCount={
                 this.props.page.page === this.props.page.totalPages
-                  ? this.props.movies.length + 1
-                  : this.props.movies.length
+                  ? this.props.searchResults.length + 1
+                  : this.props.searchResults.length
               }
               minimumBatchSize={4}
             >
@@ -163,7 +166,7 @@ class MoviesVirtualized extends PureComponent {
                     <AutoSizer disableHeight>
                       {({ width }) => {
                         itemsPerRow = Math.floor(width / 320);
-                        const rowCount = Math.ceil(this.props.movies.length / itemsPerRow);
+                        const rowCount = Math.ceil(this.props.searchResults.length / itemsPerRow);
                         return (
                           <List
                             ref={registerChild}
@@ -205,7 +208,8 @@ function mapStateToProps(state) {
     page: getPageDetails(state),
     title: getTitle(state),
     authenticated: state.authenticated.authenticated,
-    castCrew: getCastCrew(state)
+    castCrew: getCastCrew(state),
+    searchResults: searchResults(state)
   };
 }
 
@@ -214,7 +218,8 @@ MoviesVirtualized.propTypes = {
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
   page: PropTypes.object.isRequired,
-  castCrew: PropTypes.array.isRequired
+  castCrew: PropTypes.array.isRequired,
+  searchResults: PropTypes.array.isRequired
 };
 
 export default connect(
