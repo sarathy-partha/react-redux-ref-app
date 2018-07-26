@@ -16,7 +16,11 @@ const createStoreWithMiddleware = createStore(
     applyMiddleware(reduxThunk),
     reduxSearch({
       resourceIndexes: {
-        movies: ['original_title', 'title']
+        movies: ({ resources, indexDocument, state }) => {
+          resources.forEach(movie => {
+            indexDocument(movie.id, movie.movie.title);
+          });
+        }
       },
       resourceSelector: (resourceName, state) => {
         return state[resourceName];

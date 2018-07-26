@@ -9,7 +9,7 @@ import purple from '@material-ui/core/colors/purple';
 import MoviesList from '../components/moviesList';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroller';
-import { getMovieList, getPageDetails, getTitle, getCastCrew } from '../reducers';
+import { getMovieList, getPageDetails, getTitle } from '../reducers';
 
 const style = {
   root: {
@@ -66,7 +66,7 @@ class Movies extends Component {
               classNames="movielist"
               key={data.id}
             >
-              <MoviesList data={data} castCrew={this.props.castCrew} key={data.id} />
+              <MoviesList data={data.movie} castCrew={data.castcrew} key={data.id} />
             </CSSTransition>
           );
         })}
@@ -119,8 +119,7 @@ function mapStateToProps(state) {
     movies: getMovieList(state),
     page: getPageDetails(state),
     title: getTitle(state),
-    authenticated: state.authenticated.authenticated,
-    castCrew: getCastCrew(state)
+    authenticated: state.authenticated.authenticated
   };
 }
 
@@ -128,8 +127,7 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
-  page: PropTypes.any.isRequired,
-  castCrew: PropTypes.any
+  page: PropTypes.any.isRequired
 };
 
 export default connect(

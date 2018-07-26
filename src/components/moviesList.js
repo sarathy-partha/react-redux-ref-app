@@ -36,9 +36,6 @@ const style = {
 const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 class MoviesList extends Component {
   render() {
-    var result = this.props.castCrew.find(obj => {
-      return obj.id === this.props.data.id;
-    });
     return (
       <div key={this.props.data.id}>
         <Grid style={{ padding: 4 }} xs item>
@@ -68,7 +65,7 @@ class MoviesList extends Component {
                 </Badge>
                 <Typography variant="body2">Date : {this.props.data.release_date}</Typography>
               </div>
-              <CastCrew castCrew={result} />
+              <CastCrew castCrew={this.props.castCrew} />
             </CardContent>
           </Card>
         </Grid>

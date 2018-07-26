@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   CHANGE_AUTH,
-  FETCH_CASTCREW,
   FETCH_MOVIES,
   UPDATE_TITLE,
   AUTH_USER,
@@ -52,21 +51,20 @@ export function getMovies(page) {
   return function(dispatch) {
     return fetchMovies(page).then(response => {
       dispatch({
-        type: FETCH_MOVIES,
-        payload: response.data
-      });
-      dispatch({
         type: TOTAL_PAGES,
         payload: response.data
       });
-      response.data.results.map(movieId => {
-        return getCastCrew(movieId.id).then(castcrew => {
+      response.data.results.map(movie => {
+        return getCastCrew(movie.id).then(castcrew => {
           dispatch({
-            type: FETCH_CASTCREW,
+            type: FETCH_MOVIES,
             payload: {
-              id: castcrew.data.id,
-              cast: _.take(castcrew.data.cast, 4),
-              crew: _.take(castcrew.data.crew, 4)
+              id: movie.id,
+              movie: movie,
+              castcrew: {
+                cast: _.take(castcrew.data.cast, 4),
+                crew: _.take(castcrew.data.crew, 4)
+              }
             }
           });
         });

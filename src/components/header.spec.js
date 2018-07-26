@@ -23,12 +23,12 @@ describe('Header with Navigation', () => {
 
   it('should render navigation items when not authenticated', () => {
     wrapper.setProps({ authenticated: false });
-    expect(wrapper.find(Button)).toHaveLength(7);
+    expect(wrapper.find(Button)).toHaveLength(6);
   });
 
   it('should render navigation items when authenticated', () => {
     wrapper.setProps({ authenticated: true });
-    expect(wrapper.find(Button)).toHaveLength(6);
+    expect(wrapper.find(Button)).toHaveLength(5);
   });
 
   it('should have Signout button only if authenticated', () => {

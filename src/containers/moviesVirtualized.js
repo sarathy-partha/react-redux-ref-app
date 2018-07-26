@@ -14,7 +14,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CastCrew from '../components/castcrew';
 import purple from '@material-ui/core/colors/purple';
 import { InfiniteLoader, WindowScroller, List, AutoSizer } from 'react-virtualized';
-import { getMovieList, getCastCrew, getPageDetails, getTitle, searchResults } from '../reducers';
+import { getMovieList, getPageDetails, getTitle, searchResults } from '../reducers';
 
 const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w500';
 const STATUS_LOADING = 1;
@@ -110,13 +110,12 @@ class MoviesVirtualized extends PureComponent {
     const fromIndex = index * itemsPerRow;
     const toIndex = Math.min(fromIndex + itemsPerRow, this.props.searchResults.length);
     for (let i = fromIndex; i < toIndex; i++) {
-      const movie = this.props.movies.find(obj => {
-        console.log(this.props.searchResults[i]);
-        return obj.id === parseInt(this.props.searchResults[i]);
-      });
-      var result = this.props.castCrew.find(obj => {
-        return obj.id === movie.id;
-      });
+      const movieList = this.props.movies.find(
+        movie => movie.id === parseInt(this.props.searchResults[i])
+      );
+
+      const movie = movieList.movie;
+
       movies.push(
         <Card className="movieCard" key={movie.id}>
           <CardMedia className="media" image={MOVIE_POSTER_URL + movie.poster_path} />
@@ -132,7 +131,7 @@ class MoviesVirtualized extends PureComponent {
               </Badge>
               <Typography variant="body2">Date : {movie.release_date}</Typography>
             </div>
-            <CastCrew castCrew={result} />
+            <CastCrew castCrew={movieList.castcrew} />
           </CardContent>
         </Card>
       );
@@ -208,7 +207,6 @@ function mapStateToProps(state) {
     page: getPageDetails(state),
     title: getTitle(state),
     authenticated: state.authenticated.authenticated,
-    castCrew: getCastCrew(state),
     searchResults: searchResults(state)
   };
 }
@@ -218,7 +216,6 @@ MoviesVirtualized.propTypes = {
   setTitle: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
   page: PropTypes.object.isRequired,
-  castCrew: PropTypes.array.isRequired,
   searchResults: PropTypes.array.isRequired
 };
 
