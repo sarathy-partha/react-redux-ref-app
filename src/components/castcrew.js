@@ -20,14 +20,6 @@ const style = {
 };
 
 class CastCrew extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cast: [],
-      crew: []
-    };
-  }
-
   componentDidMount() {}
 
   renderCast() {

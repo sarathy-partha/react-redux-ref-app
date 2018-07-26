@@ -97,11 +97,15 @@ export class Header extends Component {
               {this.authButton()}
               <TextField
                 id="search"
-                label="Search Movie"
+                label="Search Movie / Cast"
                 type="search"
                 style={{ marginBottom: '20px' }}
+                margin="dense"
                 onChange={event => {
-                  this.props.dispatch(this.props.searchMovies(event.target.value)).then(res => res);
+                  if (event.target.value.length >= 4 || event.target.value.length === 0)
+                    this.props
+                      .dispatch(this.props.searchMovies(event.target.value))
+                      .then(res => res);
                 }}
               />
               <img alt="TMDb" src={logo} style={{ width: 50 }} />

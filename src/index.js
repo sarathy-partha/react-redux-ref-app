@@ -8,7 +8,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxThunk from 'redux-thunk';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import reduxSearch from 'redux-search';
+import reduxSearch, { SearchApi, INDEX_MODES } from 'redux-search';
+
+// prefix matching (eg "c", "ca", "cat" match "cat")
+const prefixSearchApi = new SearchApi({
+  indexMode: INDEX_MODES.PREFIXES
+});
 
 const createStoreWithMiddleware = createStore(
   reducers,
@@ -19,12 +24,15 @@ const createStoreWithMiddleware = createStore(
         movies: ({ resources, indexDocument, state }) => {
           resources.forEach(movie => {
             indexDocument(movie.id, movie.movie.title);
+            movie.castcrew.cast.forEach(cast => indexDocument(movie.id, cast.name));
+            movie.castcrew.crew.forEach(crew => indexDocument(movie.id, crew.name));
           });
         }
       },
       resourceSelector: (resourceName, state) => {
         return state[resourceName];
-      }
+      },
+      searchApi: prefixSearchApi
     })
   )
 );

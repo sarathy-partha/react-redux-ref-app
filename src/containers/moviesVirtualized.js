@@ -111,7 +111,7 @@ class MoviesVirtualized extends PureComponent {
     const toIndex = Math.min(fromIndex + itemsPerRow, this.props.searchResults.length);
     for (let i = fromIndex; i < toIndex; i++) {
       const movieList = this.props.movies.find(
-        movie => movie.id === parseInt(this.props.searchResults[i])
+        movie => movie.id === parseInt(this.props.searchResults[i], 0)
       );
 
       const movie = movieList.movie;
