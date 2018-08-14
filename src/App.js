@@ -14,16 +14,49 @@ import history from './helper/history';
 import PropTypes from 'prop-types';
 
 //import requireAuth from "./containers/require_auth";
-import Home from './components/home';
-import signin from './containers/auth/signin';
-import signout from './components/auth/signout';
 import signup from './containers/auth/signup';
 import facesignup from './components/auth/facesignup';
 import facesignin from './components/auth/facesignin';
-import Counter from './containers/counter';
-import Movies from './containers/movies';
-import Unauthorized from './components/unauthorized';
-import moviesVirtualized from './containers/moviesVirtualized';
+
+import Loadable from 'react-loadable';
+
+const Loading = () => <div>Loading...</div>;
+
+const signin = Loadable({
+  loader: () => import('./containers/auth/signin' /* webpackChunkName: "signin" */),
+  loading: Loading
+});
+
+const signout = Loadable({
+  loader: () => import('./components/auth/signout' /* webpackChunkName: "signout" */),
+  loading: Loading
+});
+
+const Unauthorized = Loadable({
+  loader: () => import('./components/unauthorized' /* webpackChunkName: "unauthorized" */),
+  loading: Loading
+});
+
+const Home = Loadable({
+  loader: () => import('./components/home' /* webpackChunkName: "home" */),
+  loading: Loading
+});
+
+const moviesVirtualized = Loadable({
+  loader: () =>
+    import('./containers/moviesVirtualized' /* webpackChunkName: "moviesVirtualized" */),
+  loading: Loading
+});
+
+const Movies = Loadable({
+  loader: () => import('./containers/Movies' /* webpackChunkName: "Movies" */),
+  loading: Loading
+});
+
+const Counter = Loadable({
+  loader: () => import('./containers/counter' /* webpackChunkName: "counter" */),
+  loading: Loading
+});
 
 const darkPalette = {
   primary: purple,
