@@ -78,7 +78,7 @@
     "@storybook/addon-links": "^3.4.8",
     "@storybook/addons": "^3.4.8",
     "@storybook/react": "^3.4.8",
-    "jsdom": "^11.11.0",
+    "jsdom": "^16.5.0",
     "jsdom-global": "^3.0.2",
     "prettier": "^1.13.7",
     "redux-devtools-extension": "^2.13.5"
